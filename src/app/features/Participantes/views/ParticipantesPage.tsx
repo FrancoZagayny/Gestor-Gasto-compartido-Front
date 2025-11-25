@@ -80,12 +80,15 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
 
   const countsByEvento = eventos.map((e) => ({
     ...e,
-    count: items.filter((p) => String(p.evento?.id_evento ?? p.evento) === String(e.id_evento)).length,
+    count: items.filter((p) => {
+      const eventoId = typeof p.evento === 'number' ? p.evento : p.evento?.id_evento;
+      return String(eventoId) === String(e.id_evento);
+    }).length,
   }));
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>Participantes</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Participantes</h2>
       {!selectedEvento && (
         <div className="grid-cards-compact">
           {countsByEvento.map((ev) => (
@@ -107,6 +110,7 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
           ))}
         </div>
       )}
+      
       {selectedEvento && (
         <div className="toolbar" style={{ justifyContent: 'space-between' }}>
           <button
@@ -123,13 +127,13 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
         </div>
       )}
       {!selectedEvento && (
-        <form onSubmit={submit} className="toolbar card">
+        <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
           <div className="field">
             <input
               className={`input ${errors.nombre ? 'input-error' : ''}`}
               value={form.nombre}
               onChange={(e) => updateField('nombre', e.target.value)}
-              placeholder="Nombre"
+              placeholder="Nombre del participante"
             />
             {errors.nombre && <span className="hint error">{errors.nombre}</span>}
           </div>
@@ -139,7 +143,7 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
               value={form.id_evento || selectedEvento}
               onChange={(e) => updateField('id_evento', e.target.value)}
             >
-              <option value="">Evento</option>
+              <option value="">Selecciona un evento</option>
               {eventos.map((e) => (
                 <option key={e.id_evento} value={e.id_evento}>
                   {e.nombre}
@@ -148,18 +152,18 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
             </select>
             {errors.id_evento && <span className="hint error">{errors.id_evento}</span>}
           </div>
-          <button disabled={loading}>Crear</button>
+          <button disabled={loading} style={{ width: '100%' }}>Crear Participante</button>
         </form>
       )}
       {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
       {selectedEvento && (
-        <form onSubmit={submit} className="toolbar card">
+        <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
           <div className="field">
             <input
               className={`input ${errors.nombre ? 'input-error' : ''}`}
               value={form.nombre}
               onChange={(e) => updateField('nombre', e.target.value)}
-              placeholder="Nombre"
+              placeholder="Nombre del participante"
             />
             {errors.nombre && <span className="hint error">{errors.nombre}</span>}
           </div>
@@ -169,7 +173,7 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
               value={form.id_evento || selectedEvento}
               onChange={(e) => updateField('id_evento', e.target.value)}
             >
-              <option value="">Evento</option>
+              <option value="">Selecciona un evento</option>
               {eventos.map((e) => (
                 <option key={e.id_evento} value={e.id_evento}>
                   {e.nombre}
@@ -178,18 +182,24 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
             </select>
             {errors.id_evento && <span className="hint error">{errors.id_evento}</span>}
           </div>
-          <button disabled={loading}>Crear</button>
+          <button disabled={loading} style={{ width: '100%' }}>Crear Participante</button>
         </form>
       )}
       {selectedEvento && (
         <ul className="list" style={{ marginTop: 0 }}>
           {items
-            .filter((p) => String(p.evento?.id_evento ?? p.evento) === selectedEvento)
+            .filter((p) => {
+              const eventoId = typeof p.evento === 'number' ? p.evento : p.evento?.id_evento;
+              return String(eventoId) === selectedEvento;
+            })
             .map((p) => (
               <li key={p.id_participante} className="list-item">
-                <span style={{ flex: 1 }}>
-                  {p.nombre} — evento: {typeof p.evento === 'object' ? p.evento.nombre : p.evento}
-                </span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontWeight: '600', fontSize: '1.1em' }}>{p.nombre}</div>
+                  <div style={{ fontSize: '0.9em', opacity: 0.8, marginTop: '4px' }}>
+                    Evento: {typeof p.evento === 'object' ? p.evento.nombre : p.evento}
+                  </div>
+                </div>
                 <button onClick={() => handleDelete(p.id_participante)}>Eliminar</button>
               </li>
             ))}

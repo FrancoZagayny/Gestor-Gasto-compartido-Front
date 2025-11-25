@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CategoriasService } from '../services/CategoriasService';
-import { Categoria, CategoriaFormData } from '../types/CategoriaTypes';
+import { Categoria } from '../types/CategoriaTypes';
 
 interface CategoriasPageProps {
   onBack?: () => void;
@@ -61,9 +61,9 @@ export default function CategoriasPage({ onBack }: CategoriasPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>Categorías</h2>
-      <form onSubmit={handleCreate} className="toolbar card">
-        <div className="field" style={{ flex: 1 }}>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Categorías</h2>
+      <form onSubmit={handleCreate} className="card" style={{ display: 'grid', gap: '16px' }}>
+        <div className="field">
           <input
             className={`input ${errors.nombre ? 'input-error' : ''}`}
             value={nombre}
@@ -72,13 +72,17 @@ export default function CategoriasPage({ onBack }: CategoriasPageProps) {
           />
           {errors.nombre && <span className="hint error">{errors.nombre}</span>}
         </div>
-        <button disabled={loading}>{loading ? 'Guardando...' : 'Crear'}</button>
+        <button disabled={loading} style={{ width: '100%' }}>
+          {loading ? 'Guardando...' : 'Crear Categoría'}
+        </button>
       </form>
       {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
       <ul className="list">
         {categorias.map((c) => (
           <li key={c.id_categoria} className="list-item">
-            <span style={{ flex: 1 }}>{c.nombre}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: '600', fontSize: '1.1em' }}>{c.nombre}</div>
+            </div>
             <button onClick={() => handleDelete(c.id_categoria)} disabled={loading}>
               Eliminar
             </button>

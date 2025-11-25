@@ -95,8 +95,8 @@ export default function GastosPage({ onBack }: GastosPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>Gastos</h2>
-      <form onSubmit={submit} className="toolbar card">
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Gastos</h2>
+      <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <input
             className={`input ${errors.descripcion ? 'input-error' : ''}`}
@@ -152,28 +152,33 @@ export default function GastosPage({ onBack }: GastosPageProps) {
           </select>
           {errors.id_participante && <span className="hint error">{errors.id_participante}</span>}
         </div>
-        <select
-          className="input"
-          value={form.id_categoria}
-          onChange={(e) => updateField('id_categoria', e.target.value)}
-        >
-          <option value="">Sin categoría (opcional)</option>
-          {categorias.map((c) => (
-            <option key={c.id_categoria} value={c.id_categoria}>
-              {c.nombre}
-            </option>
-          ))}
-        </select>
-        <button disabled={loading}>Crear</button>
+        <div className="field">
+          <select
+            className="input"
+            value={form.id_categoria}
+            onChange={(e) => updateField('id_categoria', e.target.value)}
+          >
+            <option value="">Sin categoría (opcional)</option>
+            {categorias.map((c) => (
+              <option key={c.id_categoria} value={c.id_categoria}>
+                {c.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button disabled={loading} style={{ width: '100%' }}>Crear Gasto</button>
       </form>
       {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
       <ul className="list">
         {items.map((g) => (
           <li key={g.id_gasto} className="list-item">
-            <span style={{ flex: 1 }}>
-              {g.descripcion} — ${formatMoney(g.monto)} — {g.participante?.nombre || ''}{' '}
-              {g.categoria?.nombre ? `(${g.categoria.nombre})` : '(sin categoría)'}
-            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: '600', fontSize: '1.1em' }}>{g.descripcion}</div>
+              <div style={{ fontSize: '0.9em', opacity: 0.8, marginTop: '4px' }}>
+                ${formatMoney(g.monto)} • {g.participante?.nombre || ''}{' '}
+                {g.categoria?.nombre && `• ${g.categoria.nombre}`}
+              </div>
+            </div>
             <button onClick={() => handleDelete(g.id_gasto)}>Eliminar</button>
           </li>
         ))}

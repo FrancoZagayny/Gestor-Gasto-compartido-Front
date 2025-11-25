@@ -21,12 +21,16 @@ export class DeudasService {
 
   static async getTotalPendienteByEvento(idEvento: number): Promise<number> {
     const data = await getJson(`/deudas/evento/${idEvento}/total-pendiente`);
-    return (data as any)?.total ?? data ?? 0;
+    const value = (data as any)?.total ?? data ?? 0;
+    const num = Number(value);
+    return isNaN(num) ? 0 : num;
   }
 
   static async getTotalPendienteByParticipante(idParticipante: number): Promise<number> {
     const data = await getJson(`/deudas/participante/${idParticipante}/total-pendiente`);
-    return (data as any)?.total ?? data ?? 0;
+    const value = (data as any)?.total ?? data ?? 0;
+    const num = Number(value);
+    return isNaN(num) ? 0 : num;
   }
 
   static async pagar(id: number, data: any = {}): Promise<Deuda> {

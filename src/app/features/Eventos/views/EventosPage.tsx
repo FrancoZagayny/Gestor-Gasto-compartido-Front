@@ -69,43 +69,55 @@ export default function EventosPage({ onBack }: EventosPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>Eventos</h2>
-      <form onSubmit={submit} className="toolbar card">
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Eventos</h2>
+      <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <input
             className={`input ${errors.nombre ? 'input-error' : ''}`}
             value={form.nombre}
             onChange={(e) => updateField('nombre', e.target.value)}
-            placeholder="Nombre"
+            placeholder="Nombre del evento"
           />
           {errors.nombre && <span className="hint error">{errors.nombre}</span>}
         </div>
-        <input
-          className="input"
-          value={form.descripcion}
-          onChange={(e) => updateField('descripcion', e.target.value)}
-          placeholder="Descripción"
-        />
-        <button disabled={loading}>{editing ? 'Guardar' : 'Crear'}</button>
-        {editing && (
-          <button
-            type="button"
-            onClick={() => {
-              setEditing(null);
-              setForm({ nombre: '', descripcion: '' });
-            }}
-          >
-            Cancelar
+        <div className="field">
+          <input
+            className="input"
+            value={form.descripcion}
+            onChange={(e) => updateField('descripcion', e.target.value)}
+            placeholder="Descripción (opcional)"
+          />
+        </div>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <button disabled={loading} style={{ flex: 1 }}>
+            {editing ? 'Guardar Cambios' : 'Crear Evento'}
           </button>
-        )}
+          {editing && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditing(null);
+                setForm({ nombre: '', descripcion: '' });
+              }}
+              style={{ flex: 1 }}
+            >
+              Cancelar
+            </button>
+          )}
+        </div>
       </form>
       {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
       <ul className="list">
         {items.map((ev) => (
           <li key={ev.id_evento} className="list-item">
-            <span style={{ flex: 1 }}>
-              {ev.nombre} {ev.descripcion ? `— ${ev.descripcion}` : ''}
-            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: '600', fontSize: '1.1em' }}>{ev.nombre}</div>
+              {ev.descripcion && (
+                <div style={{ fontSize: '0.9em', opacity: 0.8, marginTop: '4px' }}>
+                  {ev.descripcion}
+                </div>
+              )}
+            </div>
             <button
               onClick={() => {
                 setEditing(ev);

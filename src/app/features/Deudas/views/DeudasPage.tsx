@@ -49,7 +49,7 @@ export default function DeudasPage({ onBack }: DeudasPageProps) {
       const arr = Array.isArray(list) ? list : [];
       setDeudas(arr.filter((d) => d.estado !== 'pagada'));
 
-      const tot = { evento: null, participante: null };
+      const tot: { evento: number | null; participante: number | null } = { evento: null, participante: null };
       if (filters.id_evento) {
         tot.evento = await DeudasService.getTotalPendienteByEvento(Number(filters.id_evento));
       }
@@ -92,50 +92,60 @@ export default function DeudasPage({ onBack }: DeudasPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>Deudas</h2>
-      <div className="toolbar">
-        <select
-          className="input"
-          value={filters.id_evento}
-          onChange={(e) => setFilter('id_evento', e.target.value)}
-        >
-          <option value="">Filtrar por evento</option>
-          {eventos.map((e) => (
-            <option key={e.id_evento} value={e.id_evento}>
-              {e.nombre}
-            </option>
-          ))}
-        </select>
-        <select
-          className="input"
-          value={filters.id_participante}
-          onChange={(e) => setFilter('id_participante', e.target.value)}
-        >
-          <option value="">Filtrar por participante</option>
-          {participantes.map((p) => (
-            <option key={p.id_participante} value={p.id_participante}>
-              {p.nombre}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => setFilters({ id_evento: '', id_participante: '' })}>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Deudas</h2>
+      <div className="card" style={{ display: 'grid', gap: '16px' }}>
+        <div className="field">
+          <select
+            className="input"
+            value={filters.id_evento}
+            onChange={(e) => setFilter('id_evento', e.target.value)}
+          >
+            <option value="">Filtrar por evento</option>
+            {eventos.map((e) => (
+              <option key={e.id_evento} value={e.id_evento}>
+                {e.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="field">
+          <select
+            className="input"
+            value={filters.id_participante}
+            onChange={(e) => setFilter('id_participante', e.target.value)}
+          >
+            <option value="">Filtrar por participante</option>
+            {participantes.map((p) => (
+              <option key={p.id_participante} value={p.id_participante}>
+                {p.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button onClick={() => setFilters({ id_evento: '', id_participante: '' })} style={{ width: '100%' }}>
           Limpiar filtros
         </button>
       </div>
       {error && <p style={{ color: 'red', marginTop: 8 }}>{error}</p>}
       <div style={{ marginTop: 12 }}>
-        {totales.evento != null && <p>Total pendiente del evento: ${formatMoney(totales.evento)}</p>}
-        {totales.participante != null && (
+        {totales.evento != null && !isNaN(totales.evento) && (
+          <p>Total pendiente del evento: ${formatMoney(totales.evento)}</p>
+        )}
+        {totales.participante != null && !isNaN(totales.participante) && (
           <p>Total pendiente del participante: ${formatMoney(totales.participante)}</p>
         )}
       </div>
       <ul className="list">
         {deudas.map((d) => (
           <li key={d.id_deuda} className={`list-item ${payingId === d.id_deuda ? 'paid-anim' : ''}`}>
-            <span style={{ flex: 1 }}>
-              {d.participante?.nombre || ''} debe ${formatMoney(d.monto)}{' '}
-              {d.debeA ? `a ${d.debeA}` : ''}
-            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: '600', fontSize: '1.1em' }}>
+                {d.participante?.nombre || 'Participante'}
+              </div>
+              <div style={{ fontSize: '0.9em', opacity: 0.8, marginTop: '4px' }}>
+                Debe ${formatMoney(d.monto)} {d.debeA ? `a ${d.debeA}` : ''}
+              </div>
+            </div>
             <span className={`pill ${d.estado === 'pagada' ? 'pill--ok' : 'pill--warn'}`}>
               {d.estado}
             </span>

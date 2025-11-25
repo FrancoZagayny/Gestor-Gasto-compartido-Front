@@ -6,22 +6,23 @@ import ParticipantesPage from './features/Participantes/views/ParticipantesPage'
 import GastosPage from './features/Gastos/views/GastosPage';
 import DeudasPage from './features/Deudas/views/DeudasPage';
 import CategoriasPage from './features/Categorias/views/CategoriasPage';
+import ReportesPage from './features/Reportes/views/ReportesPage';
 
-type Route = 'home' | 'eventos' | 'participantes' | 'gastos' | 'deudas' | 'categorias';
+type Route = 'home' | 'eventos' | 'participantes' | 'gastos' | 'deudas' | 'categorias' | 'reportes';
 
 export function AppRouter() {
   const [currentRoute, setCurrentRoute] = useState<Route>('home');
 
   useEffect(() => {
     const savedRoute = localStorage.getItem('currentRoute') as Route | null;
-    if (savedRoute && ['home', 'eventos', 'participantes', 'gastos', 'deudas', 'categorias'].includes(savedRoute)) {
+    if (savedRoute && ['home', 'eventos', 'participantes', 'gastos', 'deudas', 'categorias', 'reportes'].includes(savedRoute)) {
       setCurrentRoute(savedRoute);
     }
   }, []);
 
   const handleNavigate = (route: string) => {
     const validRoute = route as Route;
-    if (['home', 'eventos', 'participantes', 'gastos', 'deudas', 'categorias'].includes(route)) {
+    if (['home', 'eventos', 'participantes', 'gastos', 'deudas', 'categorias', 'reportes'].includes(route)) {
       setCurrentRoute(validRoute);
       localStorage.setItem('currentRoute', validRoute);
     }
@@ -45,6 +46,8 @@ export function AppRouter() {
         return <DeudasPage onBack={handleBack} />;
       case 'categorias':
         return <CategoriasPage onBack={handleBack} />;
+      case 'reportes':
+        return <ReportesPage onBack={handleBack} />;
       default:
         return <DashboardPage onNavigate={handleNavigate} />;
     }
