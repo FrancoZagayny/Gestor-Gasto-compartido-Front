@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Users } from 'lucide-react';
 import { ParticipantesService } from '../services/ParticipantesService';
 import { Participante, ParticipanteFormData } from '../types/ParticipanteTypes';
 import { Evento } from '../../Eventos/types/EventoTypes';
@@ -88,7 +89,10 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Participantes</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        ← Participantes
+        <Users size={32} strokeWidth={2} />
+      </h2>
       {!selectedEvento && (
         <div className="grid-cards-compact">
           {countsByEvento.map((ev) => (
@@ -110,7 +114,7 @@ export default function ParticipantesPage({ onBack }: ParticipantesPageProps) {
           ))}
         </div>
       )}
-      
+
       {selectedEvento && (
         <div className="toolbar" style={{ justifyContent: 'space-between' }}>
           <button

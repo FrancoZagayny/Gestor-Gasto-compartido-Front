@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { 
-  BarChart3, 
-  Calendar, 
-  TrendingUp, 
-  Users, 
-  DollarSign, 
-  CreditCard, 
+import {
+  BarChart3,
+  Calendar,
+  TrendingUp,
+  Users,
+  DollarSign,
+  CreditCard,
   PieChart,
   FileText,
   Activity
@@ -145,31 +145,31 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
 
   function renderTabButtons() {
     const tabs: { key: Tab; label: string; icon: any; description: string }[] = [
-      { 
-        key: 'generales', 
-        label: 'Estadísticas Generales', 
+      {
+        key: 'generales',
+        label: 'Estadísticas Generales',
         icon: Activity,
         description: 'Vista general del sistema'
       },
-      { 
-        key: 'evento', 
-        label: 'Reportes por Evento', 
+      {
+        key: 'evento',
+        label: 'Reportes por Evento',
         icon: TrendingUp,
         description: 'Análisis detallado de eventos'
       },
-      { 
-        key: 'periodo', 
-        label: 'Análisis Temporal', 
+      {
+        key: 'periodo',
+        label: 'Análisis Temporal',
         icon: Calendar,
         description: 'Evolución en el tiempo'
       },
     ];
 
     return (
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', 
-        gap: '20px', 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+        gap: '20px',
         marginBottom: '32px',
         width: '100%',
         maxWidth: '100%'
@@ -177,7 +177,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
         {tabs.map((tab) => {
           const IconComponent = tab.icon;
           const isActive = activeTab === tab.key;
-          
+
           return (
             <button
               key={tab.key}
@@ -228,27 +228,27 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
                   pointerEvents: 'none',
                 }} />
               )}
-              
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative', zIndex: 1 }}>
-                <IconComponent 
-                  size={40} 
-                  strokeWidth={2} 
-                  style={{ 
+                <IconComponent
+                  size={40}
+                  strokeWidth={2}
+                  style={{
                     color: isActive ? 'white' : 'var(--accent)',
-                    flexShrink: 0 
-                  }} 
+                    flexShrink: 0
+                  }}
                 />
                 <div style={{ flex: 1 }}>
-                  <div style={{ 
-                    fontSize: '1.3em', 
+                  <div style={{
+                    fontSize: '1.3em',
                     fontWeight: '700',
                     marginBottom: '6px',
                     lineHeight: 1.2
                   }}>
                     {tab.label}
                   </div>
-                  <div style={{ 
-                    fontSize: '0.9em', 
+                  <div style={{
+                    fontSize: '0.9em',
                     opacity: isActive ? 0.95 : 0.7,
                     lineHeight: 1.4
                   }}>
@@ -256,7 +256,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
                   </div>
                 </div>
               </div>
-              
+
               {/* Indicador de selección */}
               {isActive && (
                 <div style={{
@@ -281,7 +281,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
 
     return (
       <div className="section" style={{ animation: 'fadeIn 0.4s ease-in' }}>
-        <div style={{ 
+        <div style={{
           marginBottom: '24px',
           paddingBottom: '16px',
           borderBottom: '2px solid var(--accent)',
@@ -293,18 +293,18 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
           <h3 style={{ margin: 0, fontSize: '1.8em' }}>Resumen Global</h3>
         </div>
         <div className="grid-cards">
-          <div className="card" style={{ 
+          <div className="card" style={{
             transition: 'all 0.3s ease',
             cursor: 'default'
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '';
-          }}>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '';
+            }}>
             <Calendar size={28} style={{ color: 'var(--accent)', marginBottom: 12 }} />
             <div style={{ fontSize: '0.9em', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '600' }}>Total Eventos</div>
             <div style={{ fontSize: '2.2em', fontWeight: 'bold', color: 'var(--accent)', margin: '8px 0' }}>
@@ -320,18 +320,18 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
             </div>
           </div>
 
-          <div className="card" style={{ 
+          <div className="card" style={{
             transition: 'all 0.3s ease',
             cursor: 'default'
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '';
-          }}>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '';
+            }}>
             <FileText size={28} style={{ color: 'var(--accent)', marginBottom: 12 }} />
             <div style={{ fontSize: '0.9em', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '600' }}>Gastos Registrados</div>
             <div style={{ fontSize: '2.2em', fontWeight: 'bold', color: 'var(--accent)', margin: '8px 0' }}>
@@ -342,18 +342,18 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
             </div>
           </div>
 
-          <div className="card" style={{ 
+          <div className="card" style={{
             transition: 'all 0.3s ease',
             cursor: 'default'
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '';
-          }}>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '';
+            }}>
             <Users size={28} style={{ color: 'var(--accent)', marginBottom: 12 }} />
             <div style={{ fontSize: '0.9em', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '600' }}>Participantes</div>
             <div style={{ fontSize: '2.2em', fontWeight: 'bold', color: 'var(--accent)', margin: '8px 0' }}>
@@ -362,18 +362,18 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
             <div style={{ fontSize: '0.85em', opacity: 0.7 }}>personas registradas</div>
           </div>
 
-          <div className="card" style={{ 
+          <div className="card" style={{
             transition: 'all 0.3s ease',
             cursor: 'default'
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '';
-          }}>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(124, 77, 255, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '';
+            }}>
             <CreditCard size={28} style={{ color: 'var(--accent)', marginBottom: 12 }} />
             <div style={{ fontSize: '0.9em', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '600' }}>Deudas</div>
             <div style={{ fontSize: '1.8em', fontWeight: 'bold', margin: '8px 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
@@ -414,7 +414,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
           <>
             {/* Resumen General */}
             <div>
-              <div style={{ 
+              <div style={{
                 marginBottom: '20px',
                 paddingBottom: '12px',
                 borderBottom: '2px solid var(--accent)',
@@ -454,7 +454,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
 
             {/* Estado de Deudas */}
             <div>
-              <div style={{ 
+              <div style={{
                 marginBottom: '16px',
                 paddingBottom: '10px',
                 borderBottom: '1px solid rgba(124, 77, 255, 0.3)',
@@ -510,7 +510,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
             {/* Gastos por Categoría */}
             {gastosPorCategoria.length > 0 && (
               <div>
-                <div style={{ 
+                <div style={{
                   marginBottom: '16px',
                   paddingBottom: '10px',
                   borderBottom: '1px solid rgba(124, 77, 255, 0.3)',
@@ -568,7 +568,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
             {/* Balance de Participantes */}
             {balanceParticipantes.length > 0 && (
               <div>
-                <div style={{ 
+                <div style={{
                   marginBottom: '16px',
                   paddingBottom: '10px',
                   borderBottom: '1px solid rgba(124, 77, 255, 0.3)',
@@ -619,7 +619,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
   function renderAnalisisTemporal() {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
-    
+
     const meses = [
       { value: '1', label: 'Enero' },
       { value: '2', label: 'Febrero' },
@@ -640,7 +640,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
       const diasPorMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
       const mesNum = parseInt(mes);
       let dias = diasPorMes[mesNum - 1];
-      
+
       // Año bisiesto
       if (mesNum === 2) {
         const anioNum = parseInt(anio);
@@ -656,7 +656,7 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
 
     return (
       <div className="section" style={{ animation: 'fadeIn 0.4s ease-in' }}>
-        <div style={{ 
+        <div style={{
           marginBottom: '24px',
           paddingBottom: '16px',
           borderBottom: '2px solid var(--accent)',
@@ -759,9 +759,9 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
                     <div style={{ fontSize: '1.2em', fontWeight: '600', wordBreak: 'break-word' }}>
                       {tipoPeriodo === 'mes'
                         ? new Date(ep.periodo + '-01').toLocaleDateString('es-AR', {
-                            year: 'numeric',
-                            month: 'long',
-                          })
+                          year: 'numeric',
+                          month: 'long',
+                        })
                         : ep.periodo}
                     </div>
                     <div style={{ fontSize: '0.9em', opacity: 0.7 }}>
@@ -792,8 +792,8 @@ export default function ReportesPage({ onBack }: ReportesPageProps) {
   return (
     <div className="section">
       <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <BarChart3 size={36} strokeWidth={2} />
-        Reportes
+        ← Reportes
+        <BarChart3 size={32} strokeWidth={2} />
       </h2>
 
       {renderTabButtons()}

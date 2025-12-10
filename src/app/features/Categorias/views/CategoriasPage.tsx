@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Tags } from 'lucide-react';
 import { CategoriasService } from '../services/CategoriasService';
 import { Categoria } from '../types/CategoriaTypes';
 
@@ -61,7 +62,10 @@ export default function CategoriasPage({ onBack }: CategoriasPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Categorías</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        ← Categorías
+        <Tags size={32} strokeWidth={2} />
+      </h2>
       <form onSubmit={handleCreate} className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <input

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Wallet } from 'lucide-react';
 import { GastosService } from '../services/GastosService';
 import { Gasto, GastoFormData } from '../types/GastoTypes';
 import { Evento } from '../../Eventos/types/EventoTypes';
@@ -95,7 +96,10 @@ export default function GastosPage({ onBack }: GastosPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Gastos</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        ← Gastos
+        <Wallet size={32} strokeWidth={2} />
+      </h2>
       <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <input
@@ -175,7 +179,7 @@ export default function GastosPage({ onBack }: GastosPageProps) {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontWeight: '600', fontSize: '1.1em' }}>{g.descripcion}</div>
               <div style={{ fontSize: '0.9em', opacity: 0.8, marginTop: '4px' }}>
-                ${formatMoney(g.monto)} • {g.participante?.nombre || ''}{' '}
+                ${formatMoney(g.monto)} • {g.evento?.nombre || ''} • {g.participante?.nombre || ''}{' '}
                 {g.categoria?.nombre && `• ${g.categoria.nombre}`}
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CreditCard } from 'lucide-react';
 import { DeudasService } from '../services/DeudasService';
 import { Deuda, DeudaFilters } from '../types/DeudaTypes';
 import { formatMoney } from '../../../../shared/libs/utils';
@@ -92,7 +93,10 @@ export default function DeudasPage({ onBack }: DeudasPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Deudas</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        ← Deudas
+        <CreditCard size={32} strokeWidth={2} />
+      </h2>
       <div className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <select
@@ -115,11 +119,13 @@ export default function DeudasPage({ onBack }: DeudasPageProps) {
             onChange={(e) => setFilter('id_participante', e.target.value)}
           >
             <option value="">Filtrar por participante</option>
-            {participantes.map((p) => (
-              <option key={p.id_participante} value={p.id_participante}>
-                {p.nombre}
-              </option>
-            ))}
+            {participantes
+              .filter((p) => !filters.id_evento || String(p.evento?.id_evento) === String(filters.id_evento))
+              .map((p) => (
+                <option key={p.id_participante} value={p.id_participante}>
+                  {p.nombre}
+                </option>
+              ))}
           </select>
         </div>
         <button onClick={() => setFilters({ id_evento: '', id_participante: '' })} style={{ width: '100%' }}>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Calendar } from 'lucide-react';
 import { EventosService } from '../services/EventosService';
 import { Evento, EventoFormData } from '../types/EventoTypes';
 
@@ -69,7 +70,10 @@ export default function EventosPage({ onBack }: EventosPageProps) {
 
   return (
     <div className="section">
-      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px' }}>← Eventos</h2>
+      <h2 onClick={onBack} style={{ cursor: 'pointer', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        ← Eventos
+        <Calendar size={32} strokeWidth={2} />
+      </h2>
       <form onSubmit={submit} className="card" style={{ display: 'grid', gap: '16px' }}>
         <div className="field">
           <input
